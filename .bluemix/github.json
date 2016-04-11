@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "title": "Example Deploy Stage",
-    "description": "Example GitHub Schema",
+    "description": "GitHub Schema for first repository",
     "longDescription": "The GitHub Service allows you to create or use an existing GitHub repository to store your source code.",
     "type": "object",
     "properties": {
@@ -12,11 +12,11 @@
             "type": "string"
         }
     },
-    "required": ["first-repo_name", "first-repo_url",],
+    "required": ["first-repo_name", "first-repo_url"],
     "form": [
       {
         "type": "validator",
-        "url": "https://devops.stage1.ng.bluemix.net/devops/setup/bm-helper/custom_github_helper.html"
+        "url": "https://devops.stage1.ng.bluemix.net/develop/setup/bm-helper/custom_github_helper.html"
       },
       {
         "type": "table",

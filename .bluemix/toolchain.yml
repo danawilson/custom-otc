@@ -17,59 +17,37 @@ first-repo:
     repo_name: "{{github.parameters.first-repo_name}}"
     repo_url: "{{github.parameters.first-repo_url}}"
     type: clone
-    has_issues: false
-  hidden: [form, description]
+    has_issues: true
+  hidden: [form, description]    
 
 # Pipelines
 first-build:
   service_id: pipeline
   parameters:
     name: "first-{{name}}"
-    configuration:
-      content: $file(first.pipeline.yml)
-      env:
-        SAUCE_LABS: "test"
-        first_REPO: "repo-repo"
-        CF_APP_NAME: "{{deploy.parameters.first-name}}"
-        DEV_SPACE_NAME: "{{deploy.parameters.dev-space}}"
-        DEV_ORG_NAME: "{{deploy.parameters.dev-organization}}"
-        DEV_REGION_ID: "{{deploy.parameters.dev-region}}"
-        QA_SPACE_NAME: "{{deploy.parameters.qa-space}}"
-        QA_ORG_NAME: "{{deploy.parameters.qa-organization}}"
-        QA_REGION_ID: "{{deploy.parameters.qa-region}}"
-        PROD_SPACE_NAME: "{{deploy.parameters.prod-space}}"
-        PROD_ORG_NAME: "{{deploy.parameters.prod-organization}}"
-        PROD_REGION_ID: "{{deploy.parameters.prod-region}}"
-      execute: true
-    services: ["first-repo", "test"]
+    ui-pipeline: true
+    configuration: 
+     content: $file(first.pipeline.yml)
+     env:
+      FIRST_REPO: "first-repo"
+      CF_APP_NAME: "{{deploy.parameters.hello-world-name}}"
+      DEV_SPACE_NAME: "{{deploy.parameters.dev-space}}"
+      DEV_ORG_NAME: "{{deploy.parameters.dev-organization}}"
+      DEV_REGION_ID: "{{deploy.parameters.dev-region}}"
+      QA_SPACE_NAME: "{{deploy.parameters.qa-space}}"
+      QA_ORG_NAME: "{{deploy.parameters.qa-organization}}"
+      QA_REGION_ID: "{{deploy.parameters.qa-region}}"
+      PROD_SPACE_NAME: "{{deploy.parameters.prod-space}}"
+      PROD_ORG_NAME: "{{deploy.parameters.prod-organization}}"
+      PROD_REGION_ID: "{{deploy.parameters.prod-region}}"
+     execute: true
+    services: ["first-repo"]
   hidden: [form, description]
+    
 
-#Timeline Analytics
-events:
-  service_id: timeline
-
-#Slack
-messaging:
-  service_id: slack
-  include: slack.yml
-
-#Sauce Labs
-test:
-  service_id: saucelabs
-  include: saucelabs.yml
-
-#Pager Duty
-alerting:
-  service_id: pagerduty
-  include: pagerduty.yml
-  
 #Web IDE
 webide:
   service_id: orion
-
-#Active Deploy
-greenblue:
-  service_id: activedeploy
   
 #Deployment
 deploy:
